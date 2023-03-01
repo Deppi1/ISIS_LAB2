@@ -1,0 +1,83 @@
+import React from 'react';
+import PERSON_IMAGE from '../image/person-icon.png';
+import EditPerson from './UI/edit/edit_person.js';
+import Modal from './UI/modal/modal.js';
+import DelPerson from './UI/edit/del_person.js';
+import toast, { Toaster } from 'react-hot-toast';
+import PropTypes from 'prop-types';
+
+class PersonItem extends React.Component {
+  state = {
+    activeE: false,
+    activeD: false,
+  };
+
+  static propTypes = {
+    index: PropTypes.string,
+    details: PropTypes.object,
+    editPerson: PropTypes.func,
+    delPerson: PropTypes.func,
+  };
+
+  activeModE = () => {
+    this.setState({ activeE: !this.state.activeE });
+  };
+
+  activeModD = () => {
+    this.setState({ activeD: !this.state.activeD });
+  };
+
+  toastDell = () => {
+    toast.success('Сотрудник удален');
+  };
+
+  render() {
+    return (
+      <div className="person">
+        <div className="image_pers">
+          <img src={PERSON_IMAGE} alt="" width={20} height={20} />
+        </div>
+
+        <div>
+          <p>{this.props.details.firstn}</p>
+        </div>
+        <div>
+          <p>{this.props.details.lastn}</p>
+        </div>
+        <div>
+          <button className="edit_btn" onClick={this.activeModE} />
+
+          <button className="del_btn" onClick={this.activeModD} />
+        </div>
+
+        <Modal
+          active={this.state.activeE}
+          import={
+            <EditPerson
+              activeMod={this.activeModE}
+              person={this.props.details}
+              editPerson={this.props.editPerson}
+              index={this.props.index}
+            />
+          }
+        />
+
+        <Modal
+          active={this.state.activeD}
+          import={
+            <DelPerson
+              activeMod={this.activeModD}
+              person={this.props.details}
+              index={this.props.index}
+              delPerson={this.props.delPerson}
+              toast={this.toastDell}
+            />
+          }
+        />
+        <Toaster position="bottom-center" reverseOrder={false} />
+      </div>
+    );
+  }
+}
+
+export default PersonItem;

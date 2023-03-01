@@ -1,0 +1,19 @@
+{
+  "persons": [
+    {
+      "id": 1,
+      "firstN": "Jason",
+      "lastN": "Statham"
+    },
+    {
+      "id": 2,
+      "firstN": "Robert",
+      "lastN": "Downey Jr."
+    },
+    {
+      "id": 3,
+      "firstN": "Иван",
+      "lastN": "Иванов"
+    }
+  ]
+}
